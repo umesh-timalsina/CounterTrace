@@ -2,6 +2,7 @@ import numpy as np
 from PIL import Image
 import logging
 from matplotlib import pyplot as plt
+import argparse
 
 
 
@@ -52,13 +53,13 @@ class ContourTracer(object):
         self.already_checked = []
         for i in range(self.image_dims[0]):
             for j in range(self.image_dims[1]):
-                if self.tess[i, j] == pixel_intensity and (i, j) not in self.already_checked:
-                    self.check_closed_contour((i, j), pixel_intensity)
+                if self.tess[i][j] == pixel_intensity and (i, j) not in self.already_checked:
+                    self._check_closed_contour((i, j), pixel_intensity)
                     break
         return count
     
 
-    def check_closed_contour(self, pixel_coordinates, pixel_intensity):
+    def _check_closed_contour(self, pixel_coordinates, pixel_intensity):
         """
         Check if there's a closed contour around this pixel
 
@@ -71,26 +72,26 @@ class ContourTracer(object):
         print("Method Call")
         B = []
         B.append(pixel_coordinates)
-        next_pixel = (-1, -1)
-        next_pixel_boundaries = ContourTracer.moores_boundary(pixel_coordinates, self.image_dims)
-        while pixel_coordinates != next_pixel:
-            print(pixel_coordinates, next_pixel)
-            # print(next_pixel_boundaries)
-            for pixel in next_pixel_boundaries:
-                next_pixel = pixel
-                if self.tess[pixel[0], pixel[1]] == pixel_intensity and pixel not in B[1:]:
-                    self.already_checked.append(pixel)
-                    # print(self.already_checked)
-                    B.append(pixel)
-                    break
-                if self.tess[pixel[0], pixel[1]] == pixel_intensity and pixel in B[1:]:
-                    continue
-                    # break
-            next_pixel_boundaries =  ContourTracer.moores_boundary(next_pixel, self.image_dims)
+        self.already_checked.append(pixel_coordinates)
+        current_pixel = pixel_coordinates
+        next_pixel_itr = iter(ContourTracer.moores_boundary(current_pixel, self.image_dims))
+        next_pixel = next(next_pixel_itr)
+        while next_pixel != pixel_coordinates:
+            if self.tess[next_pixel[0], next_pixel[1]] == pixel_intensity and next_pixel not in B[1:]:
+                B.append(next_pixel)
+                print(pixel_coordinates, next_pixel, pixel_intensity)
+                current_pixel = next_pixel
+                next_pixel_itr = iter(ContourTracer.moores_boundary(next_pixel, self.image_dims))
+                next_pixel = next(next_pixel_itr)
+            else:
+                try:
+                    next_pixel = next(next_pixel_itr)
+                except:
+                    next_pixel = current_pixel
+                    next_pixel_itr = iter(ContourTracer.moores_boundary(next_pixel, self.image_dims))
         else:
-             print("Broke from the pixel", next_pixel)
-        return True
-
+            return True
+        return False
 
     @staticmethod
     def moores_boundary(pixel_coordinates, image_dims):
@@ -124,7 +125,19 @@ class ContourTracer(object):
         return moores_boundary
 
 
+def parse_arguments():
+    """
+    Parse the program arguments in the following form:
+        count-areas <input-filename> --shape <height>,<width> 
+    """
+    parser = argparse.ArgumentParser("Count the number of contours in a binary image")
+    parser.add_argument("file_path", type=str, help='Input Image Path')
+    parser.add_argument("--shape", "-s", type=list, help="Shape of the original image width, height", default=[256, 256])
+    args = parser.parse_args()
+    return args
+
 if __name__ == "__main__":
-    ct = ContourTracer("./images/sample.bin")
+    args = parse_arguments()
+    ct = ContourTracer(args.file_path)
     print(ContourTracer.moores_boundary((3, 3), (640, 640)))
     print(ct.count_contours(0))
