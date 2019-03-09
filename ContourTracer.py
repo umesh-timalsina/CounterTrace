@@ -18,11 +18,14 @@ class ContourTracer(object):
         logging.basicConfig(level=logging.INFO,
                             format='%(asctime)s %(message)s')
         # im = Image.open(image_path).convert('L')
-        self.tess = np.fromfile(image_path)
-        self.tess = self.tess.reshape((64, 128))
-        self.image_dims = self.tess.shape
+        self.tess = np.fromfile(image_path, dtype='uint8', sep="")
+        new_size = int(np.sqrt(self.tess.size))
+        self.tess = self.tess.reshape((new_size, new_size))
+        self.tess = self.tess.clip(min=0)
+        self.image_dims = self.tess.shape 
         self.logger.info("Loaded Image from {0} as {1}*{2} numpy array"
-                            .format(image_path, self.tess.shape[0], self.tess.shape[0]))
+                            .format(image_path, self.tess.shape[0], self.tess.shape[1]))
+       
         plt.imshow(self.tess)
         plt.show()
         pass
@@ -67,7 +70,6 @@ class ContourTracer(object):
         """
         print("Method Call")
         B = []
-        # self.already_checked.append(pixel_coordinates)
         B.append(pixel_coordinates)
         next_pixel = (-1, -1)
         next_pixel_boundaries = ContourTracer.moores_boundary(pixel_coordinates, self.image_dims)
