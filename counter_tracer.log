@@ -2,3 +2,11 @@
 2019-03-09 23:42:55,410 Found Pixel With intensity 255
 2019-03-09 23:42:55,411 Found Pixel With intensity 0
 2019-03-09 23:42:55,413 Found Pixel With intensity 200
+2019-03-09 23:44:46,731 Loaded Image from ./images/sample.bin as 256*256 numpy array
+2019-03-09 23:44:46,731 Found Pixel With intensity 255
+2019-03-09 23:44:46,732 Found Pixel With intensity 0
+2019-03-09 23:44:46,734 Found Pixel With intensity 200
+2019-03-09 23:45:46,876 Loaded Image from ./images/sample.bin as 256*256 numpy array
+2019-03-09 23:45:46,876 Found Pixel With intensity 255
+2019-03-09 23:45:46,877 Found Pixel With intensity 0
+2019-03-09 23:45:46,879 Found Pixel With intensity 200

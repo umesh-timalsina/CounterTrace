@@ -31,69 +31,6 @@ class ContourTracer(object):
         # plt.imshow(self.tess)
         # plt.show()
 
-    def count_contours(self, pixel_intensity):
-        """
-        Counts the number of closed contours with the given pixel intensity
-
-        -- Arguments:
-            pixel_intensity(int) -- The intensity of the contour
-
-        -- Returns:
-            count -- The number of closed contours
-
-        Note:
-            This method uses the Moore's Contour Detection Algorithm
-            More details are available here:
-                http://www.imageprocessingplace.com/
-                downloads_V3/root_downloads/tutorials/
-                contour_tracing_Abeer_George_Ghuneim/ray.html
-        """
-        # Try 1: Looped Implementation
-        count = 0
-        B = [(0, 0)]
-        self.already_checked = []
-        for i in range(self.image_dims[0]):
-            for j in range(self.image_dims[1]):
-                if self.tess[i, j] == pixel_intensity and (i, j) not in self.already_checked:
-                    B = self.check_closed_contour((i, j), B[0], pixel_intensity)
-                    count = count+1
-                    break
-        print(pixel_intensity + " " + count)
-        return count
-
-    def check_closed_contour(self, bpixel_coordinates, e, pixel_intensity):
-        """
-        Check if there's a closed contour around this pixel
-
-        Arguments:
-            -- pixel_coordinates(tuple): (x,y) starting pixel of the contour
-            -- pixel_intensity(int): intensity of the pixel
-
-        Returns:
-            -- B : Boundary array
-        """
-        print("Method Call")
-        s = bpixel_coordinates
-        B = []
-        B.append(s)
-        p = s
-        Mp = ContourTracer.moores_boundary(bpixel_coordinates, self.image_dims)
-        c = Mp[0]
-        i = 1
-        while c != s:
-            if self.tess[c[0], c[1]] == pixel_intensity:
-                B.append(c)
-                p = c
-                c = e
-            else:
-                c = Mp[i]
-                i = i + 1
-        return B
-
-    def intensity(self, start):
-        """Returns the intensity of the start pixel"""
-        return self.tess[start[0], start[1]]
-
     def find_boundary(self, intense):
         """Find Contour around the pixel""" 
         B = []
