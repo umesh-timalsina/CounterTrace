@@ -10,3 +10,19 @@
 2019-03-09 23:45:46,876 Found Pixel With intensity 255
 2019-03-09 23:45:46,877 Found Pixel With intensity 0
 2019-03-09 23:45:46,879 Found Pixel With intensity 200
+2019-03-09 23:55:22,963 Loaded Image from ./images/shades-of-grey.png as 640*640 numpy array
+2019-03-09 23:55:22,963 Found Pixel With intensity 255
+2019-03-09 23:55:22,966 Found Pixel With intensity 0
+2019-03-09 23:55:22,984 Found Pixel With intensity 200
+2019-03-09 23:59:45,071 Loaded Image from ./images/sample.bin as 256*256 numpy array
+2019-03-09 23:59:45,122 Found Pixel With intensity 255
+2019-03-09 23:59:45,123 Found Pixel With intensity 0
+2019-03-09 23:59:45,126 Found Pixel With intensity 200
+2019-03-10 00:00:56,679 Loaded Image from ./images/sample.bin as 256*256 numpy array
+2019-03-10 00:00:56,739 Found Pixel With intensity 255
+2019-03-10 00:00:56,739 Found Pixel With intensity 0
+2019-03-10 00:00:56,742 Found Pixel With intensity 200
+2019-03-10 00:02:17,522 Loaded Image from ./images/sample.bin as 256*256 numpy array
+2019-03-10 00:02:17,580 Found Pixel With intensity 255
+2019-03-10 00:02:17,580 Found Pixel With intensity 0
+2019-03-10 00:02:17,583 Found Pixel With intensity 200
