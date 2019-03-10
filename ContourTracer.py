@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import math
 import numpy as np
 from PIL import Image
@@ -17,6 +19,7 @@ class ContourTracer(object):
         """
         self.logger = logging.getLogger("ContourTracer")
         logging.basicConfig(level=logging.INFO,
+                            filename="./counter_tracer.log",
                             format='%(asctime)s %(message)s')
         # im = Image.open(image_path).convert('L')
         self.tess = np.fromfile(image_path, dtype='uint8', sep="")
@@ -207,9 +210,10 @@ if __name__ == "__main__":
         count = ct.count_lines(B)
         # print(i, count)
         pixel_frequency[i] = count
-    print("__________________________")
-    print("|Intesity >>>>> Frequency|")
-    for intensity, frequency in enumerate(pixel_frequency):
-        print("|________________________|")
-        print("|   " + str(intensity) + "\t >>>>>\t" + "  " + str(frequency) + "      |")
-    print("|________________________|")   
+    print(*pixel_frequency, sep="\n")
+    # print("__________________________")
+    # # print("|Intesity >>>>> Frequency|")
+    # for intensity, frequency in enumerate(pixel_frequency):
+    #     print("|________________________|")
+    #     print("|   " + str(intensity) + "\t >>>>>\t" + "  " + str(frequency) + "      |")
+    # # print("|________________________|")   
