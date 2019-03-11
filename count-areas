@@ -5,8 +5,8 @@ import numpy as np
 from PIL import Image
 import logging
 import argparse
-from matplotlib import pyplot as plt
-from copy import copy
+# from matplotlib import pyplot as plt
+# from copy import copy
 
 
 class ContourTracer(object):
@@ -29,7 +29,7 @@ class ContourTracer(object):
         self.image_dims = self.tess.shape 
         self.logger.info("Loaded Image from {0} as {1}*{2} numpy array"
                             .format(image_path, self.tess.shape[0], self.tess.shape[1]))
-        plt.imshow(self.tess)
+        # plt.imshow(self.tess)
         # plt.show()
 
     def find_boundary(self, intense):
